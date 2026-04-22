@@ -1,0 +1,64 @@
+@use './theme.scss';
+@use './margin.scss';
+@use './padding.scss';
+
+.table-container {
+  border: 1px solid rgba(0, 0, 0, 0.5) !important; /* Default material divider color */
+  overflow: hidden; /* Ensures the table content respects the radius */
+}
+
+/* 1. Títulos das colunas em negrito */
+/* O seletor .mat-mdc-header-cell garante compatibilidade com as versões mais recentes (MDC) */
+.table-container .mat-mdc-header-cell {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.87); /* Cor opcional para maior destaque */
+  font-size: 14px;
+}
+
+/* 2. Cores alternadas (Zebra Striping) para as linhas */
+/* Usamos :nth-child(even) ou (odd) para selecionar as linhas ímpares/pares */
+.mat-mdc-row:nth-child(even) {
+  background-color: #f9f9f9; /* Um cinza bem claro para o contraste */
+}
+
+/* Opcional: Efeito de hover para melhorar a navegação visual */
+.mat-mdc-row:hover {
+  background-color: #eeeeee;
+}
+
+.mat-mdc-header-cell {
+  border-right: 1px solid rgba(0, 0, 0, 0.5) !important; /* Default material divider color */
+}
+
+.mat-mdc-cell {
+  border-right: 1px solid rgba(0, 0, 0, 0.5) !important; /* Default material divider color */
+}
+
+
+.mat-mdc-header-cell:last-child {
+  border-right: none;
+}
+
+.mat-mdc-cell:last-child {
+  border-right: none;
+}
+
+/* Ajustes para o layout principal */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  height: calc(100vh - 64px); /* 64px é a altura padrão da mat-toolbar */
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #3f51b5 !important; /* Cor primária */
+  font-weight: bold;
+}
+
+.mat-drawer {
+  width: 200px;
+}
