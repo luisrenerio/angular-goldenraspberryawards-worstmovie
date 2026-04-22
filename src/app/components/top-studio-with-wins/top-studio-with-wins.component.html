@@ -1,0 +1,20 @@
+<div *ngIf="errorMessage" class="error-container">
+    <p class="error-message">{{ errorMessage }}</p>
+    <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
+</div>
+
+<ng-container *ngIf="!errorMessage && (topStudios$ | async) as topStudios">
+    <h5>Top 3 studios with winners</h5>
+    <table mat-table [dataSource]="topStudios" class="table-container">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let studio"> {{studio.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="winCount">
+            <th mat-header-cell *matHeaderCellDef> Win Count </th>
+            <td mat-cell *matCellDef="let studio"> {{studio.winCount}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</ng-container>

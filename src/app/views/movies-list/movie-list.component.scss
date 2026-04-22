@@ -1,0 +1,49 @@
+.header-filter-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  .header-label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .filter-form-field {
+    width: 100%;
+
+    ::ng-deep {
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 40px;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.header-default-cell {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  .header-label {
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
