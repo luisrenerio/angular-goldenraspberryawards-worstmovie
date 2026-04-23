@@ -1,0 +1,64 @@
+@use './theme.scss';
+@use './margin.scss';
+@use './padding.scss';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-container {
+  min-width: 768px; 
+  min-height: 1280px; 
+  display: flex; 
+  flex-direction: column; 
+  overflow: auto;
+  height: 1280px; 
+}
+
+.sidenav-drawer {
+  width: 250px !important;
+}
+
+mat-drawer-container {
+  height: 1280px; 
+}
+
+mat-toolbar {
+  background-color: #333333 !important;
+  color: white !important;
+  font-weight: 500 !important;
+
+  mat-icon {
+    color: white;
+  }
+}
+
+.table-container {
+  border: 1px solid !important;
+  overflow: hidden;
+
+  .mat-mdc-row:hover {
+    background-color: #eeeeee;
+  }
+
+  .mat-mdc-header-cell {
+    border-right: 1px solid !important;
+    font-weight: bold;
+  }
+
+  .mat-mdc-cell {
+    border-right: 1px solid !important;
+
+  }
+
+  .mat-mdc-header-cell:last-child {
+    border-right: none;
+  }
+
+  .mat-mdc-cell:last-child {
+    border-right: none;
+  }
+
+}

@@ -1,0 +1,76 @@
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-card class="mb-4">
+                <mat-card-header class="mb-4">
+                    <mat-card-title>
+                        <strong>List years with multiple winners</strong>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div *ngIf="errorMessage" class="error-container">
+                        <p class="error-message">{{ errorMessage }}</p>
+                        <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
+                    </div>
+
+                    <ng-container *ngIf="(moviesData$ | async) || { content: [], totalElements: 0 } as data">
+                        <table mat-table [dataSource]="errorMessage ? [] : data.content" class="mat-elevation-z8 table-container">
+                        
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef class="header-default-cell "> 
+                                    <span class="header-label">ID</span>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let movie"> {{movie.id}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="year">
+                                <mat-header-cell *matHeaderCellDef class="header-filter-cell">
+                                    <span class="header-label">Year</span>
+                                    <mat-form-field appearance="outline" class="filter-form-field">
+                                        <input matInput placeholder="Filter by year" [(ngModel)]="filterYear" (ngModelChange)="onFilterChange()">
+                                    </mat-form-field>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let movie"> {{movie.year}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="title">
+                                <mat-header-cell *matHeaderCellDef class="header-default-cell "> 
+                                    <span class="header-label">Title</span>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let movie"> {{movie.title}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="winner">
+                                <mat-header-cell *matHeaderCellDef class="header-filter-cell"> 
+                                    <span class="header-label">Winner</span>
+                                    <mat-form-field appearance="outline" class="filter-form-field">
+                                        <mat-select placeholder="All" [(ngModel)]="filterWinner" (ngModelChange)="onFilterChange()">
+                                            <mat-option value="">All</mat-option>
+                                            <mat-option value="true">Yes</mat-option>
+                                            <mat-option value="false">No</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-header-cell>
+                                <mat-cell *matCellDef="let movie"> {{movie.winner ? 'Yes' : 'No'}} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </table>
+                        
+                        <mat-paginator *ngIf="!errorMessage && data.totalElements > 0"
+                                       [length]="data.totalElements"
+                                       [pageSize]="pageSize"
+                                       [pageIndex]="pageIndex"
+                                       [pageSizeOptions]="[10, 20, 50]"
+                                       showFirstLastButtons
+                                       aria-label="Select page of movies"
+                                       (page)="onPageChange($event)">
+                        </mat-paginator>
+                    </ng-container>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

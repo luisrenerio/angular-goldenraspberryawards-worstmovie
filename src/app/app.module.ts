@@ -9,7 +9,6 @@ import { MoviesListModule } from './movies-list/movies-list.module';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    DashboardModule,
     MoviesListModule
   ]
 })
