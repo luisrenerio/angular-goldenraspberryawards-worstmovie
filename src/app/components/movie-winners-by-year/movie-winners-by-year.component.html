@@ -11,12 +11,12 @@
     </div>
 </div>
 
-<div *ngIf="errorMessage" class="error-container">
+<div *ngIf="(errorMessage$ | async) as errorMessage" class="error-container">
     <p class="error-message">{{ errorMessage }}</p>
     <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
 </div>
 
-<ng-container *ngIf="!errorMessage && (movies$ | async) as movies">
+<ng-container *ngIf="!(errorMessage$ | async) && (movies$ | async) as movies">
     <table mat-table [dataSource]="movies" class="table-container">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Id </th>

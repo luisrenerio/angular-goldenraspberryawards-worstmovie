@@ -24,17 +24,17 @@ export class MovieWinnersByYearComponent implements OnInit {
   public year: number | undefined;
 
   public movies$!: Observable<Movie[] | null>;
-  public errorMessage: string | null = null;
+  public errorMessage$ = new BehaviorSubject<string | null>(null);
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   ngOnInit(): void {
     this.movies$ = this.refresh$.pipe(
-      tap(() => this.errorMessage = null),
+      tap(() => this.errorMessage$.next(null)),
       switchMap(() => {
         if (!this.year) return of([]);
         return this.dashboardService.getWinnersByYear(this.year).pipe(
           catchError(err => {
-            this.errorMessage = err.message || 'Ocorreu um erro ao carregar os vencedores.';
+            this.errorMessage$.next(err.message || 'Ocorreu um erro ao carregar os vencedores.');
             return of(null);
           })
         );

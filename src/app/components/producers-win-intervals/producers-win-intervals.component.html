@@ -1,9 +1,9 @@
-<div *ngIf="errorMessage" class="error-container">
+<div *ngIf="(errorMessage$ | async) as errorMessage" class="error-container">
     <p class="error-message">{{ errorMessage }}</p>
     <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
 </div>
 
-<ng-container *ngIf="!errorMessage && (producersInterval$ | async) as producersInterval">
+<ng-container *ngIf="!(errorMessage$ | async) && (producersInterval$ | async) as producersInterval">
     <h5>Maximum</h5>
     <table mat-table [dataSource]="producersInterval.max" class="table-container mb-4">
         <ng-container matColumnDef="producer">

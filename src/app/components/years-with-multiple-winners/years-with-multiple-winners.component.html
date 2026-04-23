@@ -1,9 +1,9 @@
-<div *ngIf="errorMessage" class="error-container">
+<div *ngIf="(errorMessage$ | async) as errorMessage" class="error-container">
     <p class="error-message">{{ errorMessage }}</p>
     <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
 </div>
 
-<ng-container *ngIf="!errorMessage && (yearsWithMultipleWinners$ | async) as years">
+<ng-container *ngIf="!(errorMessage$ | async) && (yearsWithMultipleWinners$ | async) as years">
     <h5>List years with multiple winners</h5>
     <table mat-table [dataSource]="years" class="table-container">
         <ng-container matColumnDef="year">

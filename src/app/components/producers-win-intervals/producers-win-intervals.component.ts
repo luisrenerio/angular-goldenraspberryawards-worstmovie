@@ -19,15 +19,15 @@ export class ProducersWinIntervalsComponent implements OnInit {
   public readonly displayedColumns: string[] = ['producer', 'interval', 'previousWin', 'followingWin'];
 
   public producersInterval$!: Observable<ProducerInterval | null>;
-  public errorMessage: string | null = null;
+  public errorMessage$ = new BehaviorSubject<string | null>(null);
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   ngOnInit(): void {
     this.producersInterval$ = this.refresh$.pipe(
-      tap(() => this.errorMessage = null),
+      tap(() => this.errorMessage$.next(null)),
       switchMap(() => this.dashboardService.getProducersInterval().pipe(
         catchError(err => {
-          this.errorMessage = err.message || 'Ocorreu um erro ao carregar os intervalos dos produtores.';
+          this.errorMessage$.next(err.message || 'Ocorreu um erro ao carregar os intervalos dos produtores.');
           return of(null);
         })
       ))

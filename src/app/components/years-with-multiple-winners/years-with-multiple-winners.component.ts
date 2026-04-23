@@ -18,16 +18,16 @@ export class YearsWithMultipleWinnersComponent implements OnInit {
   public readonly displayedColumns: string[] = ['year', 'winnerCount'];
 
   public yearsWithMultipleWinners$!: Observable<any[] | null>;
-  public errorMessage: string | null = null;
+  public errorMessage$ = new BehaviorSubject<string | null>(null);
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   ngOnInit(): void {
     this.yearsWithMultipleWinners$ = this.refresh$.pipe(
-      tap(() => this.errorMessage = null),
+      tap(() => this.errorMessage$.next(null)),
       switchMap(() => this.dashboardService.getYearsWithMultipleWinners().pipe(
         map(data => data.years),
         catchError(err => {
-          this.errorMessage = err.message || 'Ocorreu um erro ao carregar os anos com múltiplos vencedores.';
+          this.errorMessage$.next(err.message || 'Ocorreu um erro ao carregar os anos com múltiplos vencedores.');
           return of(null);
         })
       ))

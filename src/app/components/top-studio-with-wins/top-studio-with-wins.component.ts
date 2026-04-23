@@ -18,16 +18,16 @@ export class TopStudioWithWinnersComponent implements OnInit {
   public readonly displayedColumns: string[] = ['name', 'winCount'];
 
   public topStudios$!: Observable<any[] | null>;
-  public errorMessage: string | null = null;
+  public errorMessage$ = new BehaviorSubject<string | null>(null);
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   ngOnInit(): void {
     this.topStudios$ = this.refresh$.pipe(
-      tap(() => this.errorMessage = null),
+      tap(() => this.errorMessage$.next(null)),
       switchMap(() => this.dashboardService.getTopStudios().pipe(
         map(data => data.studios.slice(0, 3)),
         catchError(err => {
-          this.errorMessage = err.message || 'Ocorreu um erro ao carregar os estúdios.';
+          this.errorMessage$.next(err.message || 'Ocorreu um erro ao carregar os estúdios.');
           return of(null);
         })
       ))

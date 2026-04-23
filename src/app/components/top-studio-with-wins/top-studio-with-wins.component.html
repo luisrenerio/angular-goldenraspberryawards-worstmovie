@@ -1,9 +1,9 @@
-<div *ngIf="errorMessage" class="error-container">
+<div *ngIf="(errorMessage$ | async) as errorMessage" class="error-container">
     <p class="error-message">{{ errorMessage }}</p>
     <button mat-stroked-button color="primary" (click)="loadData()">Tentar novamente</button>
 </div>
 
-<ng-container *ngIf="!errorMessage && (topStudios$ | async) as topStudios">
+<ng-container *ngIf="!(errorMessage$ | async) && (topStudios$ | async) as topStudios">
     <h5>Top 3 studios with winners</h5>
     <table mat-table [dataSource]="topStudios" class="table-container">
         <ng-container matColumnDef="name">
